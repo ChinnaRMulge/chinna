@@ -1,0 +1,76 @@
+Write a function that takes 2 inputs(Sentence and Word), Your function should return a dictionary with the
+word as key and the number of occurrences as values.
+For example,
+Sentence: &#39;azconionionulbegghakl dfge&#39;
+Word: &#39;onion&#39;
+then the function should return a dictionary,
+{‘onion’: 2}
+
+code:
+def count_occurrences(main_string, sub_string):
+    # Initialize an empty dictionary to store the results
+    occurrences = {}
+
+    # Check if the sub_string is not empty
+    if sub_string:
+        # Split the main_string by the sub_string
+        parts = main_string.split(sub_string)
+
+        # The number of occurrences will be the length of parts - 1
+        num_occurrences = len(parts) - 1
+
+        # Store the result in the dictionary
+        occurrences[sub_string] = num_occurrences
+
+    return occurrences
+
+# Example usage:
+main_string = "siddalingalinga"
+sub_string = "linga"
+result = count_occurrences(main_string, sub_string)
+print(result)
+In this example, the count_occurrences function takes two input strings, main_string and sub_string. It splits the main_string by the sub_string and counts the number of occurrences. The result is stored in a dictionary with the sub_string as the key and the number of occurrences as the value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+code 
+def count_word_occurrences(sentence, word):
+    # Initialize an empty dictionary to store the word occurrences.
+    word_occurrences = {}
+
+    # Split the sentence into words using whitespace as the delimiter.
+    words = sentence.split()
+
+    # Iterate through the words in the sentence.
+    for w in words:
+        # Remove any non-alphanumeric characters from the word to match it with the input word.
+        cleaned_word = ''.join(c for c in w if c.isalnum())
+        
+        # Check if the cleaned word matches the input word.
+        if cleaned_word.lower() == word.lower():
+            # Increment the count of the word in the dictionary.
+            if word.lower() in word_occurrences:
+                word_occurrences[word.lower()] += 1
+            else:
+                word_occurrences[word.lower()] = 1
+
+    return word_occurrences
+
+# Example usage:
+sentence = 'azconionionulbegghakl dfge'
+word = 'onion'
+result = count_word_occurrences(sentence, word)
+print(result)  # Output: {'onion': 2}

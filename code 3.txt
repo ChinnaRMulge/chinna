@@ -1,0 +1,36 @@
+
+copy from mail
+
+
+code
+
+The code iterates through the original DataFrame and extracts the non-null value from the "2 wheeler," "3 wheeler," and "4 wheeler" columns to create the "Vehicles Owned" column in the new DataFrame. The "Expenses per month" column is copied as is. The resulting new DataFrame will have the "Vehicles Owned" and "Expenses per month" columns without any null values.
+
+
+import pandas as pd
+
+# Create the original DataFrame
+data = {
+    'Si_no': [1, 2, 3, 4, 5, 6],
+    '2 wheeler': ['Honda Activa', None, None, None, None, None],
+    '3 wheeler': [None, 'Bajaj Auto', None, None, None, None],
+    '4 wheeler': [None, None, 'Tata Ace', 'Maruti Swift', 'Volkswagen Polo', 'Honda City'],
+    'Expenses per month': [1000, 1500, 2000, 4000, 7000, 7500]
+}
+
+df = pd.DataFrame(data)
+
+# Create a new DataFrame with the imputed values
+new_data = []
+
+for index, row in df.iterrows():
+    vehicles = [row['2 wheeler'], row['3 wheeler'], row['4 wheeler']]
+    vehicles_owned = [v for v in vehicles if v is not None][0]
+    expense = row['Expenses per month']
+    
+    new_data.append([row['Si_no'], vehicles_owned, expense])
+
+new_df = pd.DataFrame(new_data, columns=['Si_no', 'Vehicles Owned', 'Expenses per month'])
+
+# Print the resulting DataFrame
+print(new_df)

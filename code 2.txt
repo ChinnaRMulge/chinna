@@ -1,0 +1,54 @@
+Assume you are our data engineer/data analyst, one fine morning you got an email from the client below,
+“I would like to see the list of customers who made their first order in 2 months from today.
+Customers should have at least 2 orders.”
+Create your own transactional data frame/dataset with the features you like and write pseudocode to get
+the information mentioned in the email. If you do not know to make pseudocode, write the logic in SQL
+query or in python pandas or in “PySpark”.
+
+
+
+
+
+
+code
+Let's assume our dataset has the following columns:
+
+CustomerID: Unique identifier for each customer.
+OrderID: Unique identifier for each order.
+OrderDate: Date of the order.
+Here's a pseudocode to accomplish this task in Python using pandas:
+
+python
+
+
+
+# Import the necessary libraries
+import pandas as pd
+from datetime import datetime
+
+# Create a sample transactional DataFrame
+data = {
+    'CustomerID': [1, 1, 2, 2, 3, 4],
+    'OrderID': [101, 102, 201, 202, 301, 401],
+    'OrderDate': ['2023-07-15', '2023-08-10', '2023-06-05', '2023-09-01', '2023-08-01', '2023-07-20']
+}
+
+df = pd.DataFrame(data)
+
+# Convert the 'OrderDate' column to datetime objects
+df['OrderDate'] = pd.to_datetime(df['OrderDate'])
+
+# Get the current date
+current_date = datetime.now()
+
+# Calculate the date two months ago from the current date
+two_months_ago = current_date - pd.DateOffset(months=2)
+
+# Group the data by 'CustomerID' and count the number of orders
+order_counts = df.groupby('CustomerID')['OrderID'].count()
+
+# Filter customers who made their first order within the last 2 months and have at least 2 orders
+filtered_customers = order_counts[(order_counts >= 2) & (df.groupby('CustomerID')['OrderDate'].min() >= two_months_ago)]
+
+# Print the list of customers meeting the criteria
+print(filtered_customers.index)

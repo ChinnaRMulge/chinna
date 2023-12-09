@@ -1,0 +1,33 @@
+Take a sample dataset of your own. Perform a chi-square test using python and explain the
+insights you got from the result.
+
+code:
+
+Take a sample dataset of your own. Perform a chi-square test using python and explain the
+insights you got from the result.
+import pandas as pd
+import numpy as np
+from scipy.stats import chi2_contingency
+
+# Create a sample dataset with the number of people who prefer each chocolate brand
+data = {
+    'Dairy Milk': [85, 15],
+    'KitKat': [70, 30]
+}
+
+df = pd.DataFrame(data, index=['Popular', 'Not Popular'])
+
+# Perform a chi-square test
+chi2, p, _, _ = chi2_contingency(df)
+
+# Interpret the results
+alpha = 0.05  # Significance level
+
+print(f'Chi-Square Statistic: {chi2}')
+print(f'p-value: {p}')
+
+if p < alpha:
+    print('There is a significant association between chocolate brand and popularity.')
+else:
+    print('There is no significant association between chocolate brand and popularity.')
+In the chi-square test, we set up a contingency table with the observed values for "Popular" and "Not Popular" for both Dairy Milk and KitKat. The null hypothesis (H0) is that there is no significant association between chocolate brand and popularity, while the alternative hypothesis (H1) is that there is a significant association.
